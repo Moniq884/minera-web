@@ -105,6 +105,26 @@ footer a:hover{text-decoration:underline}
 .tmv img{height:30px;margin:0}
 @media(max-width:700px){.fgrid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* animations */
+.hero{overflow:hidden}
+.hero img{animation:hero-enter .9s cubic-bezier(.22,1,.36,1) both}
+@keyframes hero-enter{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)}}
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1);transition-delay:var(--delay,0ms)}
+.js .reveal.is-visible{opacity:1;transform:none}
+.js .reveal.from-left{transform:translateX(-28px)}
+.js .reveal.from-right{transform:translateX(28px)}
+.js .reveal.from-left.is-visible,.js .reveal.from-right.is-visible{transform:none}
+.product,.card,.btn,.social-links a{transition:transform .25s ease,box-shadow .25s ease,background .2s}
+.product:hover,.card:hover{transform:translateY(-7px);box-shadow:0 12px 26px rgba(22,39,122,.14)}
+.product img{transition:transform .35s ease}
+.product:hover img{transform:scale(1.04)}
+.social-links a:hover{transform:translateY(-3px)}
+@media(prefers-reduced-motion:reduce){
+ .hero img{animation:none}
+ .js .reveal,.product,.card,.btn,.social-links a,.product img{transition:none}
+ .js .reveal,.js .reveal.from-left,.js .reveal.from-right{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
@@ -285,6 +305,27 @@ footer a:hover{text-decoration:underline}
 const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
 burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
 menu.addEventListener('click',e=>{if(e.target.tagName==='A'){menu.classList.remove('open');burger.setAttribute('aria-expanded','false')}});
+
+document.documentElement.classList.add('js');
+const animatedElements=document.querySelectorAll('section h2, section .split > img, section .split > div, .product, .card, .cta');
+animatedElements.forEach((element,index)=>{
+  element.classList.add('reveal');
+  element.style.setProperty('--delay', `${(index % 3) * 90}ms`);
+});
+
+if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const revealObserver=new IntersectionObserver((entries,observer)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:.15,rootMargin:'0px 0px -40px'});
+  animatedElements.forEach(element=>revealObserver.observe(element));
+}else{
+  animatedElements.forEach(element=>element.classList.add('is-visible'));
+}
 </script>
 </body>
 </html>
