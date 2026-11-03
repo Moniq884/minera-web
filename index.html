@@ -22,10 +22,8 @@ h1,h2,h3{font-family:var(--head);color:var(--navy);line-height:1.1}
 h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:.5em}
 section{padding:clamp(60px,8vw,110px) 0}
 .alt{background:var(--mist)}
-.btn{position:relative;display:inline-block;overflow:hidden;background:var(--red);color:#fff;font-family:var(--head);font-weight:700;font-size:1.3rem;letter-spacing:.06em;padding:16px 48px;border-radius:999px;text-decoration:none;transition:background .2s}
-.btn::after{content:"";position:absolute;inset:-50% auto -50% -45%;width:35%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-150%) skewX(-20deg);transition:transform .65s ease}
+.btn{display:inline-block;background:var(--red);color:#fff;font-family:var(--head);font-weight:700;font-size:1.3rem;letter-spacing:.06em;padding:16px 48px;border-radius:999px;text-decoration:none;transition:background .2s}
 .btn:hover{background:var(--navy)}
-.btn:hover::after{transform:translateX(520%) skewX(-20deg)}
 
 /* header */
 header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);box-shadow:0 1px 0 #d6e4ef}
@@ -34,13 +32,9 @@ header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdro
 .brand img{height:30px;width:auto}
 nav ul{display:flex;gap:26px;list-style:none;padding:0}
 nav a{text-decoration:none;font-weight:600;color:var(--navy)}
-nav a:not(.eshop-link){position:relative}
-nav a:not(.eshop-link)::after{content:"";position:absolute;left:0;right:0;bottom:5px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
-nav a:not(.eshop-link):hover{color:var(--red)}
-nav a:not(.eshop-link):hover::after{transform:scaleX(1)}
+nav a:hover{color:var(--red)}
 .eshop-link{background:var(--red);color:#fff!important;padding:8px 20px;border-radius:999px}
-.eshop-link{transition:background .2s,transform .2s}
-.eshop-link:hover{background:var(--navy);transform:translateY(-2px)}
+.eshop-link:hover{background:var(--navy)}
 .burger{display:none;background:none;border:0;font-size:1.8rem;color:var(--navy);cursor:pointer}
 @media(max-width:900px){
  .burger{display:block}
@@ -60,6 +54,13 @@ nav a:not(.eshop-link):hover::after{transform:scaleX(1)}
 .link{display:inline-block;margin-top:1.2em;font-weight:600;color:var(--red)}
 @media(max-width:850px){.split,.split.rev{grid-template-columns:1fr}}
 #kvalita img{max-width:240px;margin-inline:auto}
+@media(max-width:850px){
+ #kvalita{padding:40px 0}
+ #kvalita .split{grid-template-columns:90px 1fr;gap:16px;align-items:start}
+ #kvalita img{max-width:90px;margin:4px 0 0}
+ #kvalita h2{font-size:1.5rem;margin-bottom:.4em}
+ #kvalita p{font-size:.92rem;line-height:1.5}
+}
 
 /* products */
 .sizes{margin-top:2.6em}
@@ -94,6 +95,8 @@ nav a:not(.eshop-link):hover::after{transform:scaleX(1)}
 .card div{padding:18px 18px 22px}
 .card h3{font-size:1.25rem;margin-bottom:.4em}
 .card p{font-size:.93rem;line-height:1.55;color:#3d4a74}
+.card.heart{background:#fde9ec}
+.card.heart h3{color:var(--red)}
 @media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.cards{grid-template-columns:1fr}}
 
@@ -104,44 +107,10 @@ footer img{height:38px;width:auto;margin-bottom:18px}
 footer ul{list-style:none;padding:0;display:grid;gap:8px}
 footer a{text-decoration:none}
 footer a:hover{text-decoration:underline}
-.social-links{display:flex;align-items:center;gap:12px}
-.social-links a{display:inline-flex;align-items:center}
-.social-links svg{width:29px;height:29px;flex:none}
 .tmv{margin-top:36px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .tmv img{height:30px;margin:0}
 @media(max-width:700px){.fgrid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-/* animations */
-.hero{position:relative;overflow:hidden}
-.hero img{animation:hero-enter .9s cubic-bezier(.22,1,.36,1) both}
-.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.18) 49%,transparent 63%);transform:translateX(-110%);animation:hero-shine 1.5s .55s ease-out both}
-@keyframes hero-enter{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)}}
-@keyframes hero-shine{to{transform:translateX(110%)}}
-.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1);transition-delay:var(--delay,0ms)}
-.js .reveal.is-visible{opacity:1;transform:none}
-.js .reveal.from-left{transform:translateX(-28px)}
-.js .reveal.from-right{transform:translateX(28px)}
-.js .reveal.from-left.is-visible,.js .reveal.from-right.is-visible{transform:none}
-.js section h2::after{content:"";display:block;width:48px;height:4px;margin-top:12px;border-radius:4px;background:var(--sky);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.22,1,.36,1);transition-delay:var(--delay,0ms)}
-.js section h2.is-visible::after{transform:scaleX(1)}
-.product,.card,.btn,.social-links a{transition:transform .25s ease,box-shadow .25s ease,background .2s}
-.product:hover,.card:hover{transform:translateY(-7px);box-shadow:0 12px 26px rgba(22,39,122,.14)}
-.product img{transition:transform .35s ease}
-.product:hover img{transform:scale(1.04)}
-.product img{animation:bottle-glow 4s ease-in-out infinite alternate}
-@keyframes bottle-glow{from{filter:drop-shadow(0 3px 4px rgba(22,39,122,.04))}to{filter:drop-shadow(0 8px 9px rgba(22,39,122,.14))}}
-.js .product .tags li{opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
-.js .product.is-visible .tags li{opacity:1;transform:none}
-.js .product.is-visible .tags li:nth-child(2){transition-delay:100ms}
-.js .product.is-visible .tags li:nth-child(3){transition-delay:200ms}
-.social-links a:hover{transform:translateY(-3px)}
-@media(prefers-reduced-motion:reduce){
- .hero img,.hero::after,.product img{animation:none}
- .js .reveal,.product,.card,.btn,.social-links a,.product img,.btn::after,nav a::after,.js section h2::after,.js .product .tags li{transition:none}
- .js .reveal,.js .reveal.from-left,.js .reveal.from-right,.js section h2::after{opacity:1;transform:none}
- .js .product .tags li{opacity:1;transform:none}
-}
 </style>
 </head>
 <body>
@@ -264,9 +233,9 @@ footer a:hover{text-decoration:underline}
   <div class="wrap split rev">
     <div>
       <h2>S nízkym obsahom sodíka</h2>
-      <p>Sodík pomáha v tele vytvárať zásadité prostredie, ktoré napomáha k udržaniu zdravia. Väčšiu časť dennej dávky sodíka prijmeme denne solením jedla, na každodenné pitie preto sa odporúča vyberať si vody s jeho nižším obsahom. Vysoký príjem sodíka zo soli zapríčiňuje zvýšený krvný tlak a núti obličky vylučovať viac tekutín. To môže mať za následok vznik kardiovaskulárnych porúch akými sú mŕtvica, infarkt, či akútne zlyhanie srdca. Rovnako aj niektoré prípady obezity môžu prameniť zo zvýšeného príjmu soli. Smernice v Spojených štátoch odporúčajú prijímať menej ako 2,3g soli denne, čo predstavuje asi jednu čajovú lyžičku. Pre ľudí po päťdesiatke je to menej ako 1,5g. Tieto odporúčania vychádzajú z výskumov, ktoré opisujú prepojenie rôznych ochorení na vysoký príjem soli.</p>
+      <p>Sodík pomáha v tele vytvárať zásadité prostredie, ktoré napomáha k udržaniu zdravia. Väčšiu časť dennej dávky sodíka prijmeme denne solením jedla, na každodenné pitie preto sa odporúča vyberať si vody s jeho nižším obsahom. Vysoký príjem sodíka zo soli zapríčiňuje zvýšený krvný tlak a núti obličky vylučovať viac tekutín. To môže mať za následok vznik kardiovaskulárnych porúch akými sú mŕtvica, infarkt, či akútne zlyhanie srdca. Rovnako aj niektoré prípady obezity môžu prameniť zo zvýšeného príjmu soli. Smernice v Spojených štátoch odporúčajú prijímať menej ako 2,3 g soli denne, čo predstavuje asi jednu čajovú lyžičku. Pre ľudí po päťdesiatke je to menej ako 1,5 g. Tieto odporúčania vychádzajú z výskumov, ktoré opisujú prepojenie rôznych ochorení na vysoký príjem soli.</p>
     </div>
-    <img src="images/sodik.png" alt="Nízky obsah sodíka" loading="lazy">
+    <img src="https://minera.sk/wp-content/uploads/2020/12/pexels-engin-akyurt-2952653-copy.jpg" alt="Nízky obsah sodíka" loading="lazy">
   </div>
 </section>
 
@@ -301,14 +270,13 @@ footer a:hover{text-decoration:underline}
           <li><a href="https://tmv.filecamp.com/s/all/fo/Qs3DDGvGHpxfBglY" target="_blank" rel="noopener">Media Kit</a></li>
           <li><a href="https://eshop.miticka.sk/mineralna_voda/" target="_blank" rel="noopener">Eshop</a></li>
           <li><a href="#produkty">Produkty</a></li>
+          <li><a href="https://minera.sk/ekologia/" target="_blank" rel="noopener">Ekológia</a></li>
         </ul>
       </div>
       <div>
         <p>IČO 35867159<br>DIČ 2021751985<br>IČ DPH SK2021751985</p>
-        <ul class="social-links" style="margin-top:14px">
-          <li><a href="https://www.facebook.com/minera.kalciova?locale=sk_SK" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="currentColor" d="M13.6 21.8v-8.1h2.7l.4-3.2h-3.1V8.4c0-.9.3-1.6 1.6-1.6h1.7V4a22 22 0 0 0-2.5-.1c-2.5 0-4.2 1.5-4.2 4.3v2.4H7.4v3.2h2.8v8.1z"/></svg></a></li>
-          <li><a href="https://www.instagram.com/minera.kalciova/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".75" fill="currentColor" stroke="none"/></svg></a></li>
-        </ul>
+        <!-- Doplň odkazy na sociálne siete -->
+        <ul style="margin-top:14px"><li><a href="#">Facebook</a></li><li><a href="#">X</a></li><li><a href="#">Instagram</a></li></ul>
       </div>
     </div>
     <div class="tmv">
@@ -322,27 +290,6 @@ footer a:hover{text-decoration:underline}
 const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
 burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
 menu.addEventListener('click',e=>{if(e.target.tagName==='A'){menu.classList.remove('open');burger.setAttribute('aria-expanded','false')}});
-
-document.documentElement.classList.add('js');
-const animatedElements=document.querySelectorAll('section h2, section .split > img, section .split > div, .product, .card, .cta');
-animatedElements.forEach((element,index)=>{
-  element.classList.add('reveal');
-  element.style.setProperty('--delay', `${(index % 3) * 90}ms`);
-});
-
-if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  const revealObserver=new IntersectionObserver((entries,observer)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  },{threshold:.15,rootMargin:'0px 0px -40px'});
-  animatedElements.forEach(element=>revealObserver.observe(element));
-}else{
-  animatedElements.forEach(element=>element.classList.add('is-visible'));
-}
 </script>
 </body>
 </html>
