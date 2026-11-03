@@ -22,8 +22,10 @@ h1,h2,h3{font-family:var(--head);color:var(--navy);line-height:1.1}
 h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:.5em}
 section{padding:clamp(60px,8vw,110px) 0}
 .alt{background:var(--mist)}
-.btn{display:inline-block;background:var(--red);color:#fff;font-family:var(--head);font-weight:700;font-size:1.3rem;letter-spacing:.06em;padding:16px 48px;border-radius:999px;text-decoration:none;transition:background .2s}
+.btn{position:relative;display:inline-block;overflow:hidden;background:var(--red);color:#fff;font-family:var(--head);font-weight:700;font-size:1.3rem;letter-spacing:.06em;padding:16px 48px;border-radius:999px;text-decoration:none;transition:background .2s}
+.btn::after{content:"";position:absolute;inset:-50% auto -50% -45%;width:35%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-150%) skewX(-20deg);transition:transform .65s ease}
 .btn:hover{background:var(--navy)}
+.btn:hover::after{transform:translateX(520%) skewX(-20deg)}
 
 /* header */
 header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);box-shadow:0 1px 0 #d6e4ef}
@@ -32,9 +34,13 @@ header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdro
 .brand img{height:30px;width:auto}
 nav ul{display:flex;gap:26px;list-style:none;padding:0}
 nav a{text-decoration:none;font-weight:600;color:var(--navy)}
-nav a:hover{color:var(--red)}
+nav a:not(.eshop-link){position:relative}
+nav a:not(.eshop-link)::after{content:"";position:absolute;left:0;right:0;bottom:5px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+nav a:not(.eshop-link):hover{color:var(--red)}
+nav a:not(.eshop-link):hover::after{transform:scaleX(1)}
 .eshop-link{background:var(--red);color:#fff!important;padding:8px 20px;border-radius:999px}
-.eshop-link:hover{background:var(--navy)}
+.eshop-link{transition:background .2s,transform .2s}
+.eshop-link:hover{background:var(--navy);transform:translateY(-2px)}
 .burger{display:none;background:none;border:0;font-size:1.8rem;color:var(--navy);cursor:pointer}
 @media(max-width:900px){
  .burger{display:block}
@@ -107,23 +113,34 @@ footer a:hover{text-decoration:underline}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 /* animations */
-.hero{overflow:hidden}
+.hero{position:relative;overflow:hidden}
 .hero img{animation:hero-enter .9s cubic-bezier(.22,1,.36,1) both}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.18) 49%,transparent 63%);transform:translateX(-110%);animation:hero-shine 1.5s .55s ease-out both}
 @keyframes hero-enter{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)}}
+@keyframes hero-shine{to{transform:translateX(110%)}}
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1);transition-delay:var(--delay,0ms)}
 .js .reveal.is-visible{opacity:1;transform:none}
 .js .reveal.from-left{transform:translateX(-28px)}
 .js .reveal.from-right{transform:translateX(28px)}
 .js .reveal.from-left.is-visible,.js .reveal.from-right.is-visible{transform:none}
+.js section h2::after{content:"";display:block;width:48px;height:4px;margin-top:12px;border-radius:4px;background:var(--sky);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.22,1,.36,1);transition-delay:var(--delay,0ms)}
+.js section h2.is-visible::after{transform:scaleX(1)}
 .product,.card,.btn,.social-links a{transition:transform .25s ease,box-shadow .25s ease,background .2s}
 .product:hover,.card:hover{transform:translateY(-7px);box-shadow:0 12px 26px rgba(22,39,122,.14)}
 .product img{transition:transform .35s ease}
 .product:hover img{transform:scale(1.04)}
+.product img{animation:bottle-glow 4s ease-in-out infinite alternate}
+@keyframes bottle-glow{from{filter:drop-shadow(0 3px 4px rgba(22,39,122,.04))}to{filter:drop-shadow(0 8px 9px rgba(22,39,122,.14))}}
+.js .product .tags li{opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
+.js .product.is-visible .tags li{opacity:1;transform:none}
+.js .product.is-visible .tags li:nth-child(2){transition-delay:100ms}
+.js .product.is-visible .tags li:nth-child(3){transition-delay:200ms}
 .social-links a:hover{transform:translateY(-3px)}
 @media(prefers-reduced-motion:reduce){
- .hero img{animation:none}
- .js .reveal,.product,.card,.btn,.social-links a,.product img{transition:none}
- .js .reveal,.js .reveal.from-left,.js .reveal.from-right{opacity:1;transform:none}
+ .hero img,.hero::after,.product img{animation:none}
+ .js .reveal,.product,.card,.btn,.social-links a,.product img,.btn::after,nav a::after,.js section h2::after,.js .product .tags li{transition:none}
+ .js .reveal,.js .reveal.from-left,.js .reveal.from-right,.js section h2::after{opacity:1;transform:none}
+ .js .product .tags li{opacity:1;transform:none}
 }
 </style>
 </head>
